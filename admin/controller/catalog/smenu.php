@@ -421,10 +421,10 @@ class ControllerCatalogsmenu extends Controller {
 
 		$data['cancel'] = $this->url->link('catalog/smenu', 'token=' . $this->session->data['token'] . $url, 'SSL');
 		$data['tree'] = array();
+		$data['last'] = $this->model_catalog_smenu->getLastsmenu();
 		if (isset($this->request->get['smenu_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
 			$smenu_info = $this->model_catalog_smenu->getsmenu($this->request->get['smenu_id']);
 			$root_items = $this->model_catalog_smenu->getItems($this->request->get['smenu_id']);
-			$data['last'] = $this->model_catalog_smenu->getLastsmenu();
 			foreach ($root_items as $items) {
 				$children_data=false;
 				$childs = $this->model_catalog_smenu->getItems($this->request->get['smenu_id'], $items['item_id']);
