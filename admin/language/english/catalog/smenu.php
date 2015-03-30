@@ -8,15 +8,15 @@ $_['text_list']          = 'List Menu';
 $_['text_modal']         = 'Item setup';
 
 // Column
-$_['column_name']        = 'Menu name';
+$_['column_name']        = 'Name';
 $_['column_action']      = 'Action';
+$_['column_title']       = 'Title';
 
 // Entry
 $_['entry_name']         = 'Menu Name:';
-$_['entry_title']        = 'Title:';
 
 $_['button_showform']    = 'Show form';
-$_['button_showchilds']   = 'Show children items';
+$_['button_showchilds']  = 'Show children items';
 
 // Error
 $_['error_permission']   = 'Warning: You do not have permission to modify gallery images!';
@@ -41,6 +41,5 @@ $_['option_article']     = 'Articles';
 $_['option_category']    = 'Categories';
 $_['option_product']     = 'Products';
 $_['option_system']      = 'System';
-$_['option_type']        = 'Cart';
 
 ?>

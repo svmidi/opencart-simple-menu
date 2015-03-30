@@ -3,17 +3,17 @@
 $_['heading_title']      = 'sMenu Simple Menu';
 
 // Text
-$_['text_success']       = 'Success: You have modified menu!';
+$_['text_success']       = 'Меню успешно сохранено!';
 $_['text_list']          = 'Список меню';
 $_['text_modal']         = 'Ссылка пункта';
 
 // Column
 $_['column_name']        = 'Название';
 $_['column_action']      = 'Действия';
+$_['column_title']       = 'Подсказка:';
 
 // Entry
 $_['entry_name']         = 'Название меню:';
-$_['entry_title']        = 'Подсказка:';
 
 $_['button_showform']    = 'Показать форму';
 $_['button_showchilds']  = 'Показать дочерние пункты';
@@ -41,6 +41,5 @@ $_['option_article']     = 'Статьи';
 $_['option_category']    = 'Категории';
 $_['option_product']     = 'Продукты';
 $_['option_system']      = 'Специальные';
-$_['option_type']        = 'Корзина';
 
 ?>

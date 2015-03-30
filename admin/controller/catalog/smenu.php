@@ -55,6 +55,9 @@ class ControllerCatalogsmenu extends Controller {
 			$this->model_catalog_smenu->editsmenu($this->request->get['smenu_id'], $this->request->get['menuItem'], $this->request->post);
 			$this->request->post;
 			$this->session->data['success'] = $this->language->get('text_success');
+			/*echo '<pre>';
+			print_r($this->request->post);
+			echo '</pre>';*/
 
 			$url = '';
 
@@ -276,15 +279,10 @@ class ControllerCatalogsmenu extends Controller {
 		$data['text_list'] = $this->language->get('text_list');
 		$data['text_confirm'] = $this->language->get('text_confirm');
 
-		$data['column_status'] = $this->language->get('column_status');
-		$data['column_text'] = $this->language->get('column_text');
-		$data['column_sort'] = $this->language->get('column_sort');
 		$data['button_add'] = $this->language->get('button_add');
 		$data['button_delete'] = $this->language->get('button_delete');
 		$data['column_name'] = $this->language->get('column_name');
 		$data['column_action'] = $this->language->get('column_action');
-
-
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
@@ -354,6 +352,7 @@ class ControllerCatalogsmenu extends Controller {
 		$data['entry_name'] = $this->language->get('entry_name');
 		$data['entry_sort_order'] = $this->language->get('entry_sort_order');
 
+		$data['column_name'] = $this->language->get('column_name');
 		$data['column_title'] = $this->language->get('column_title');
 
 		$data['text_enabled'] = $this->language->get('text_enabled');
@@ -449,8 +448,7 @@ class ControllerCatalogsmenu extends Controller {
 				);
 			}
 		}
-			
-		//$data['name']=$smenu_info;
+
 		$data['token'] = $this->session->data['token'];
 
 		if (isset($this->request->post['name'])) {
@@ -460,14 +458,6 @@ class ControllerCatalogsmenu extends Controller {
 		} else {
 			$data['name'] = '';
 		}
-
-		/*if (isset($this->request->post['status'])) {
-			$data['status'] = $this->request->post['status'];
-		} elseif (!empty($smenu_info)) {
-			$data['status'] = $smenu_info['status'];
-		} else {
-			$data['status'] = true;
-		}*/
 
 		$this->load->model('localisation/language');
 
