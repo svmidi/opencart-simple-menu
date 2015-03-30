@@ -420,13 +420,12 @@ class ControllerCatalogsmenu extends Controller {
 		}
 
 		$data['cancel'] = $this->url->link('catalog/smenu', 'token=' . $this->session->data['token'] . $url, 'SSL');
-
+		$data['tree'] = array();
 		if (isset($this->request->get['smenu_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
 			$smenu_info = $this->model_catalog_smenu->getsmenu($this->request->get['smenu_id']);
 			$root_items = $this->model_catalog_smenu->getItems($this->request->get['smenu_id']);
 			$data['last'] = $this->model_catalog_smenu->getLastsmenu();
 			foreach ($root_items as $items) {
-				//echo $items['item_id'];
 				$children_data=false;
 				$childs = $this->model_catalog_smenu->getItems($this->request->get['smenu_id'], $items['item_id']);
 				foreach ($childs as $child) {
@@ -449,10 +448,6 @@ class ControllerCatalogsmenu extends Controller {
 					'childs'         => $children_data
 				);
 			}
-		}
-		else
-		{
-			$data['tree'] = array();
 		}
 			/*echo '<pre>';
 			print_r($data['tree']);
