@@ -29,7 +29,7 @@ class ModelCatalogsmenu extends Model {
 		foreach ($sort_data as $id_item => $smenu_item) {
 			$i++;
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "smenu_items` (`smenu_item_id`, `smenu_parent`,`smenu_id`,`smenu_order`, `type`,`type_id`, `type_name`) 
-				VALUES ('". $id_item ."', '" . (int)$smenu_item . "', '" . (int)$smenu_id . "', '" . $i . "', '". $data['smenu_item'][$id_item]['type']."', '". $data['smenu_item'][$id_item]['type_id']."', '". $data['smenu_item'][$id_item]['type_name']."')
+				VALUES ('". $id_item ."', '" . (int)$smenu_item . "', '" . (int)$smenu_id . "', '" . $i . "', '". $data['smenu_item'][$id_item]['type']."', '". $data['smenu_item'][$id_item]['type-id']."', '". $data['smenu_item'][$id_item]['type-name']."')
 			ON DUPLICATE KEY 
 				UPDATE 
 					`smenu_parent` = '" .  (int)$smenu_item . "', 

@@ -449,9 +449,7 @@ class ControllerCatalogsmenu extends Controller {
 				);
 			}
 		}
-			/*echo '<pre>';
-			print_r($data['tree']);
-			echo '</pre>';*/
+			
 		//$data['name']=$smenu_info;
 		$data['token'] = $this->session->data['token'];
 
