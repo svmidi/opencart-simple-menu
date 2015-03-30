@@ -6,16 +6,14 @@ $_['heading_title']      = 'sMenu Simple Menu';
 $_['text_success']       = 'Success: You have modified menu!';
 $_['text_list']          = 'List Menu';
 $_['text_modal']         = 'Item setup';
-
+$_['text_sure']          = 'Are you sure you want to delete this item?';
 // Column
 $_['column_name']        = 'Name';
 $_['column_action']      = 'Action';
 $_['column_title']       = 'Title';
 
 // Entry
-$_['entry_name']         = 'Menu Name:';
-$_['entry_menu']         = 'Select menu:';
-$_['entry_status']       = 'Status:';
+$_['entry_name']         = 'Menu name:';
 
 $_['button_showform']    = 'Show form';
 $_['button_showchilds']  = 'Show children items';

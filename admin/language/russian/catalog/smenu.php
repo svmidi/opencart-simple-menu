@@ -6,7 +6,7 @@ $_['heading_title']      = 'sMenu Simple Menu';
 $_['text_success']       = 'Меню успешно сохранено!';
 $_['text_list']          = 'Список меню';
 $_['text_modal']         = 'Ссылка пункта';
-
+$_['text_sure']          = 'Вы уверены, что хотите удалить этот пункт?';
 // Column
 $_['column_name']        = 'Название';
 $_['column_action']      = 'Действия';
@@ -14,8 +14,6 @@ $_['column_title']       = 'Подсказка:';
 
 // Entry
 $_['entry_name']         = 'Название меню:';
-$_['entry_menu']         = 'Выберите меню:';
-$_['entry_status']       = 'Статус:';
 
 $_['button_showform']    = 'Показать форму';
 $_['button_showchilds']  = 'Показать дочерние пункты';

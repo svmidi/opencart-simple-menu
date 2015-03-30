@@ -58,7 +58,7 @@ class ModelCatalogsmenu extends Model {
 			$this->db->query("DELETE FROM " . DB_PREFIX . "smenu_links WHERE `smenu_items_id` = '" . (int)$smenu_item_id . "';");
 		}
 
-	public function getsmenu($smenu_id) {			
+	public function getsmenu($smenu_id) {
 		$query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "smenu WHERE `smenu_id` = '" . (int)$smenu_id . "';");
 		return $query->row;
 	}
@@ -72,9 +72,9 @@ class ModelCatalogsmenu extends Model {
 		);	
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY " . $data['sort'];	
+			$sql .= " ORDER BY " . $data['sort'];
 		} else {
-			$sql .= " ORDER BY `name`";	
+			$sql .= " ORDER BY `name`";
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {
@@ -112,7 +112,7 @@ class ModelCatalogsmenu extends Model {
 
 			$smenu_link_description_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "smenu_links WHERE `smenu_items_id` = '" . (int)$smenu_links['smenu_item_id'] . "'");
 
-			foreach ($smenu_link_description_query->rows as $smenu_link_description) {			
+			foreach ($smenu_link_description_query->rows as $smenu_link_description) {
 				$smenu_link_description_data[$smenu_link_description['smenu_language_id']] = array(
 					'title' => $smenu_link_description['smenu_title'],
 					'text' => $smenu_link_description['smenu_text']

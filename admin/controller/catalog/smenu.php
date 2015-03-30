@@ -323,7 +323,7 @@ class ControllerCatalogsmenu extends Controller {
 
 		$data['text_enabled'] = $this->language->get('text_enabled');
 		$data['text_disabled'] = $this->language->get('text_disabled');
-		$data['text_default'] = $this->language->get('text_default');
+		$data['text_sure'] = $this->language->get('text_sure');
 		$data['text_list'] = $this->language->get('text_list');
 
 		$data['entry_name'] = $this->language->get('entry_name');
