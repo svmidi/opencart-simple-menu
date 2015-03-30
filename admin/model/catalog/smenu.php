@@ -1,34 +1,20 @@
 <?php
 class ModelCatalogsmenu extends Model {
-	public function addsmenu($data) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "smenu SET 
-			`name` = '" .  $data['name'] . "'");
-		$smenu_id = $this->db->getLastId();
-		foreach ($data['smenu_item'] as $smenu_item) {
-			$this->db->query("INSERT INTO " . DB_PREFIX . "smenu_items SET 
-				`smenu_parent` = '" .  (int)$smenu_item['parent'] . "', 
-				`smenu_id` = '" .  (int)$smenu_id . "', 
-				`smenu_order` = '" .  (int)$smenu_item['order'] . "'");
-			$item_id = $this->db->getLastId();
-			foreach ($smenu_item['smenu_item_description'] as $lang => $smenu_link) {
-				$this->db->query("INSERT INTO " . DB_PREFIX . "smenu_links SET 
-					`smenu_items_id` = '" . (int)$item_id . "', 
-					`smenu_text` = '" .  $this->db->escape($smenu_link['text']) . "', 
-					`smenu_id` = '" .  (int)$smenu_id . "', 
-					`smenu_title` = '" .  $this->db->escape($smenu_link['title']) . "', 
-					`smenu_language_id` = '".$lang."'");
-			}
-		}
-	}
 
-	public function editsmenu($smenu_id, $sort_data, $data) {
-		$this->db->query("UPDATE " . DB_PREFIX . "smenu SET 
-			`name` = '" .  $data['name'] . "'
-		WHERE `smenu_id` = '" . (int)$smenu_id . "'");
+	public function editsmenu($smenu_id=0, $sort_data, $data) {
+		if ($smenu_id){
+			$this->db->query("UPDATE `" . DB_PREFIX . "smenu` SET 
+				`name` = '" .  $data['name'] . "'
+			WHERE `smenu_id` = '" . (int)$smenu_id . "'");
+		} else {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "smenu` SET 
+				`name` = '" .  $data['name'] . "'");
+			$smenu_id = $this->db->getLastId();
+		}
 		$i=0;
 		foreach ($sort_data as $id_item => $smenu_item) {
 			$i++;
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "smenu_items` (`smenu_item_id`, `smenu_parent`,`smenu_id`,`smenu_order`, `type`,`type_id`, `type_name`) 
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "smenu_items` (`smenu_item_id`, `smenu_parent`, `smenu_id`, `smenu_order`, `type`,`type_id`, `type_name`) 
 				VALUES ('". $id_item ."', '" . (int)$smenu_item . "', '" . (int)$smenu_id . "', '" . $i . "', '". $data['smenu_item'][$id_item]['type']."', '". $data['smenu_item'][$id_item]['type-id']."', '". $data['smenu_item'][$id_item]['type-name']."')
 			ON DUPLICATE KEY 
 				UPDATE 
@@ -149,7 +135,7 @@ class ModelCatalogsmenu extends Model {
 	}
 
 	public function getTotalsmenus() {
-		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM " . DB_PREFIX . "smenu");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "smenu`;");
 		return $query->row['total'];
 	}
 

@@ -12,38 +12,6 @@ class ControllerCatalogsmenu extends Controller {
 		$this->getList();
 	}
 
-	public function add() {
-		$this->load->language('catalog/smenu');
-
-		$this->document->setTitle($this->language->get('heading_title'));
-
-		$this->load->model('catalog/smenu');
-
-		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-			$this->model_catalog_smenu->addsmenu($this->request->post);
-
-			$this->session->data['success'] = $this->language->get('text_success');
-
-			$url = '';
-
-			if (isset($this->request->get['sort'])) {
-				$url .= '&sort=' . $this->request->get['sort'];
-			}
-
-			if (isset($this->request->get['order'])) {
-				$url .= '&order=' . $this->request->get['order'];
-			}
-
-			if (isset($this->request->get['page'])) {
-				$url .= '&page=' . $this->request->get['page'];
-			}
-
-			$this->response->redirect($this->url->link('catalog/smenu', 'token=' . $this->session->data['token'] . $url, 'SSL'));
-		}
-
-		$this->getForm();
-	}
-
 	public function update() {
 		$this->load->language('catalog/smenu');
 
@@ -52,12 +20,10 @@ class ControllerCatalogsmenu extends Controller {
 		$this->load->model('catalog/smenu');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-			$this->model_catalog_smenu->editsmenu($this->request->get['smenu_id'], $this->request->get['menuItem'], $this->request->post);
+			$smenu_id=(isset($this->request->get['smenu_id']))?$this->request->get['smenu_id']:0;
+			$this->model_catalog_smenu->editsmenu($smenu_id, $this->request->get['menuItem'], $this->request->post);
 			$this->request->post;
 			$this->session->data['success'] = $this->language->get('text_success');
-			/*echo '<pre>';
-			print_r($this->request->post);
-			echo '</pre>';*/
 
 			$url = '';
 
@@ -241,7 +207,7 @@ class ControllerCatalogsmenu extends Controller {
 			'href'      => $this->url->link('catalog/smenu', 'token=' . $this->session->data['token'] . $url, 'SSL'),
 		);
 
-		$data['add'] = $this->url->link('catalog/smenu/add', 'token=' . $this->session->data['token'] . $url, 'SSL');
+		$data['add'] = $this->url->link('catalog/smenu/update', 'token=' . $this->session->data['token'] . $url, 'SSL');
 		$data['delete'] = $this->url->link('catalog/smenu/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
 
 		$data['smenus'] = array();
@@ -345,7 +311,7 @@ class ControllerCatalogsmenu extends Controller {
 	protected function getForm() {
 		$this->document->addScript('view/javascript/jquery/nested/jquery-ui.min.js');
 		$this->document->addScript('view/javascript/jquery/nested/jquery.mjs.nestedSortable.js');
-		$this->document->addStyle('view/stylesheet/css/jquery-ui.css');
+
 		$data['heading_title'] = $this->language->get('heading_title');
 
 		$data['entry_smenu'] = $this->language->get('entry_smenu');
@@ -413,7 +379,7 @@ class ControllerCatalogsmenu extends Controller {
 		);
 
 		if (!isset($this->request->get['smenu_id'])) { 
-			$data['action'] = $this->url->link('catalog/smenu/add', 'token=' . $this->session->data['token'] . $url, 'SSL');
+			$data['action'] = $this->url->link('catalog/smenu/update', 'token=' . $this->session->data['token'] . $url, 'SSL');
 		} else {
 			$data['action'] = $this->url->link('catalog/smenu/update', 'token=' . $this->session->data['token'] . '&smenu_id=' . $this->request->get['smenu_id'] . $url, 'SSL');
 		}
