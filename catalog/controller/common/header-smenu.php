@@ -79,113 +79,67 @@ class ControllerCommonHeader extends Controller {
 			}
 		}
 
-		// Menu
-		/*$this->load->model('catalog/category');
-
-		$this->load->model('catalog/product');
-
-		$data['categories'] = array();
-
-		$categories = $this->model_catalog_category->getCategories(0);
-
-		foreach ($categories as $category) {
-			if ($category['top']) {
-				// Level 2
-				$children_data = array();
-
-				$children = $this->model_catalog_category->getCategories($category['category_id']);
-
-				foreach ($children as $child) {
-					$filter_data = array(
-						'filter_category_id'  => $child['category_id'],
-						'filter_sub_category' => true
-					);
-
-					$children_data[] = array(
-						'name'  => $child['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),
-						'href'  => $this->url->link('product/category', 'path=' . $category['category_id'] . '_' . $child['category_id'])
-					);
-				}
-
-				// Level 1
-				$data['categories'][] = array(
-					'name'     => $category['name'],
-					'children' => $children_data,
-					'column'   => $category['column'] ? $category['column'] : 1,
-					'href'     => $this->url->link('product/category', 'path=' . $category['category_id'])
-				);
-			}
-		}*/
-
-
-
-
-
 		$this->load->model('catalog/smenu');
-
+		
 		$root_items = $this->model_catalog_smenu->getSmenu(1);
+		$routs=array(0 =>"/",1=>"information/contact", 2=>"account/return/add", 3=>"information/sitemap", 4=>"product/manufacturer", 5=>"account/voucher", 6=>"affiliate/account", 7=>"product/special", 8=>"account/account", 9=>"account/order", 10=>"account/wishlist", 11=>"account/newsletter", 12=>"account/newsletter");
 		$path=array(1=>'information/information', 2=>'product/category', 3 =>'catalog/product', 4=>'information/sigallery');
-		$path_url=array(1=>'&information_id=', 2=>'&path=', 3=>'&path=', 4=>'&path_gallery=');
+		$path_url=array(1=>'information_id', 2=>'path', 3=>'path', 4=>'path_gallery');
+
 		foreach ($root_items as $items) {
 			$children_data=false;
 			$childs = $this->model_catalog_smenu->getSmenu($items['smenu_id'], $items['smenu_item_id']);
-			//$parse_url = parse_url($items['smenu_link']);
-			//echo "<hr> URL:"; print_r($parse_url); echo "<br>GET:";
-			//print_r($this->request->get);
-			//echo $this->request->get['route'];
 			$active = 0;
 
-			/*if (isset($parse_url['query']))
-			{
-				if ("route=".$this->request->get['route'] == $parse_url['query'])
-				{
-					$active = 1;
-				}
-			}
-			elseif (isset($this->request->get['route']))
-			{
-				if ($this->request->get['route'] == $parse_url['path'])
-				{
-					$active = 1;
-				}
-			}*/
 			foreach ($childs as $child) {
+				if ($child['type']==5) {
+					$url=$items['type_name'];
+				}
+				if ($child['type']==6) {
+					$url=$this->url->link($routs[(int)$child['type']],"", 'SSL');
+				}
+				else {
+					$url=$this->url->link($path[(int)$child['type']], "&".$path_url[(int)$child['type']]."=".$child['type_id'], 'SSL');
+				}
 				$children_data[] = array(
 					'item_id'        => $child['smenu_item_id'],
-					'order'          => $child['smenu_order'],
-					'url'            => ($child['type']!=5)?$this->url->link($path[(int)$child['type']], $path_url[(int)$child['type']].$child['type_id'], 'SSL'):$child['type_name'],
-					'text'           => $child['smenu_text'],
+					'href'           => $url,
+					'name'           => $child['smenu_text'],
 					'title'          => $child['smenu_title']
-
 				);
 			}
-			$data['tree'][] = array(
+
+			if ($items['type']==5) {
+				$url=$items['type_name'];
+			}
+			elseif (($items['type']==6) AND ($items['type_id']!=0)) {
+				$url=$this->url->link($routs[(int)$items['type_id']],"", 'SSL');
+				if (isset($this->request->get['route']))
+				{
+					$active = ($this->request->get['route'] == $routs[(int)$items['type_id']])?'active':'';
+				}
+			}
+			elseif (($items['type']==6) AND ($items['type_id']==0)) {
+				$url="/";
+				$active = (!$this->request->get)?'active':'';
+			}
+			else {
+				$url=$this->url->link($path[(int)$items['type']], "&".$path_url[(int)$items['type']]."=".$items['type_id'], 'SSL');
+				if ((isset($this->request->get['route']))AND($this->request->get['route']==$path[(int)$items['type']]) AND (isset($this->request->get[$path_url[(int)$items['type']]])))
+					$active = 'active';
+			}
+
+			$data['categories'][] = array(
 				'item_id'        => $items['smenu_item_id'],
 				'order'          => $items['smenu_order'],
-				'text'           => $items['smenu_text'],
+				'name'           => $items['smenu_text'],
 				'title'          => $items['smenu_title'],
-				'url'            => ($items['type']!=5)?$this->url->link($path[(int)$items['type']], $path_url[(int)$items['type']].$items['type_id'], 'SSL'):$items['type_name'],
+				'href'           => $url,
 				'active'         => $active,
-				'childs'         => $children_data
+				'children'       => $children_data,
+				'column'         => 1
 			);
 		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 		$data['language'] = $this->load->controller('common/language');
 		$data['currency'] = $this->load->controller('common/currency');
