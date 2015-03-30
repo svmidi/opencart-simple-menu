@@ -25,6 +25,9 @@ class ControllerModulesmenu extends Controller {
 		$data['entry_status'] = $this->language->get('entry_status');
 		$data['entry_name'] = $this->language->get('entry_name');
 		$data['entry_menu'] = $this->language->get('entry_menu');
+		$data['button_control'] = $this->language->get('button_control');
+
+		$data['button_control_href'] = $this->url->link('catalog/smenu', 'token=' . $this->session->data['token'], 'SSL');
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];

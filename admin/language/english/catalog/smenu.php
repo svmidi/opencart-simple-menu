@@ -14,6 +14,8 @@ $_['column_title']       = 'Title';
 
 // Entry
 $_['entry_name']         = 'Menu Name:';
+$_['entry_menu']         = 'Select menu:';
+$_['entry_status']       = 'Status:';
 
 $_['button_showform']    = 'Show form';
 $_['button_showchilds']  = 'Show children items';

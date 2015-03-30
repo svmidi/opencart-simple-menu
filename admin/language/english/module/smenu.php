@@ -1,23 +1,16 @@
 <?php
 // Heading
-$_['heading_title']       = 'Menu sMenu';
+$_['heading_title']       = 'Simple Menu';
 
 // Text
-$_['text_module']         = 'Modules';
+$_['text_edit']           = 'Edit module sMenu';
 $_['text_success']        = 'Success: You have modified module sMenu!';
-$_['text_edit']        	  = 'Edit sMenu Module';
 // Entry
-$_['entry_smenu']         = 'sMenu:';
-$_['entry_name']          = 'Name:';
-
+$_['entry_name']          = 'Module name:';
+$_['entry_menu']          = 'Select menu:';
+$_['entry_status']        = 'Status:';
 // Error
 $_['error_permission']    = 'Warning: You do not have permission to modify module sMenu!';
-
-// Columns
-$_['text_list']           = 'List items';
-$_['column_text']         = 'Name';
-$_['column_link']         = 'URL';
-$_['column_title']        = 'Title';
-$_['column_action']       = 'Action';
-
+//Button
+$_['button_control']      = 'Go to the menu control';
 ?>

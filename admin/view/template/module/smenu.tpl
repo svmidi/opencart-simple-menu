@@ -57,6 +57,7 @@
 							</select>
 						</div>
 					</div>
+					<a href="<?php echo $button_control_href; ?>" class="btn btn-default"><?php echo $button_control; ?></a>
 				</div>
 			</div>
 		</div>

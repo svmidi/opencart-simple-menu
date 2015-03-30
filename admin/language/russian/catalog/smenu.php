@@ -14,6 +14,8 @@ $_['column_title']       = 'Подсказка:';
 
 // Entry
 $_['entry_name']         = 'Название меню:';
+$_['entry_menu']         = 'Выберите меню:';
+$_['entry_status']       = 'Статус:';
 
 $_['button_showform']    = 'Показать форму';
 $_['button_showchilds']  = 'Показать дочерние пункты';
