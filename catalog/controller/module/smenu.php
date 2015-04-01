@@ -13,9 +13,8 @@ class ControllerModuleSmenu extends Controller {
 
 		$root_items = $this->model_catalog_smenu->getSmenu($setting['menu']);
 		$routs=array(0 =>"/",1=>"information/contact", 2=>"account/return/add", 3=>"information/sitemap", 4=>"product/manufacturer", 5=>"account/voucher", 6=>"affiliate/account", 7=>"product/special", 8=>"account/account", 9=>"account/order", 10=>"account/wishlist", 11=>"account/newsletter", 12=>"account/newsletter");
-		$path=array(1=>'information/information', 2=>'product/category', 3 =>'catalog/product', 4=>'information/sigallery');
-		$path_url=array(1=>'information_id', 2=>'path', 3=>'path', 4=>'path_gallery');
-
+		$path=array(1=>'information/information', 2=>'product/category', 3 =>'catalog/product', 4=>'information/sigallery',0=>'');
+		$path_url=array(1=>'information_id', 2=>'path', 3=>'path', 4=>'path_gallery',0=>'');
 		foreach ($root_items as $items) {
 			$children_data=false;
 			$childs = $this->model_catalog_smenu->getSmenu($items['smenu_id'], $items['smenu_item_id']);

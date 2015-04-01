@@ -93,6 +93,13 @@ class ControllerCatalogsmenu extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	public function setheader() {
+		$this->load->model('catalog/smenu');
+		$json['error']=0;
+		$this->model_catalog_smenu->setHeader($this->request->post['menuid']);
+		$this->response->setOutput(json_encode($json));
+	}
+
 	public function getType() {
 		$this->language->load('catalog/smenu');
 		$json['error']=1;
@@ -209,6 +216,7 @@ class ControllerCatalogsmenu extends Controller {
 
 		$data['add'] = $this->url->link('catalog/smenu/update', 'token=' . $this->session->data['token'] . $url, 'SSL');
 		$data['delete'] = $this->url->link('catalog/smenu/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
+		$data['token'] = $this->session->data['token'];
 
 		$data['smenus'] = array();
 
@@ -234,7 +242,7 @@ class ControllerCatalogsmenu extends Controller {
 			$data['smenus'][] = array(
 				'smenu_id'  => $result['smenu_id'],
 				'name'      => $result['name'],	
-				'selected'  => isset($this->request->post['selected']) && in_array($result['smenu_id'], $this->request->post['selected']),				
+				'header'      => $result['smenu_status'],			
 				'action'    => $action
 			);
 		}

@@ -36,6 +36,7 @@
           <thead>
             <tr>
               <th width="1" style="text-align: center;"><input type="checkbox" onclick="$('input[name*=\'selected\']').attr('checked', this.checked);" /></th>
+              <th width="1"><input type="radio" name="onhead" class="onhead" value="0"></th>
               <th class="left"><?php if ($sort == 'name') { ?>
                 <a href="<?php echo $sort_text; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_name; ?></a>
                 <?php } else { ?>
@@ -49,11 +50,16 @@
             <?php if ($smenus) { ?>
             <?php foreach ($smenus as $smenu) { ?>
             <tr>
-              <td style="text-align: center;"><?php if ($smenu['selected']) { ?>
-                <input type="checkbox" name="selected[]" value="<?php echo $smenu['smenu_id']; ?>" checked="checked" />
-                <?php } else { ?>
+              <td style="text-align: center;">
                 <input type="checkbox" name="selected[]" value="<?php echo $smenu['smenu_id']; ?>" />
-                <?php } ?></td>
+              </td>
+              <td>
+              <?php if ($smenu['header']) { ?>
+                <input type="radio" name="onhead" class="onhead" CHECKED value="<?php echo $smenu['smenu_id']; ?>">
+              <?php } else { ?>
+                <input type="radio" name="onhead" class="onhead" value="<?php echo $smenu['smenu_id']; ?>">
+              <?php } ?>
+              </td>
               <td class="left"><?php echo $smenu['name']; ?></td>
               <td class="right"><?php foreach ($smenu['action'] as $action) { ?>
                 <a href="<?php echo $action['href']; ?>" data-toggle="tooltip" title="<?php echo $action['text']; ?>" class="btn btn-primary" data-original-title="<?php echo $action['text']; ?>"><i class="fa fa-pencil"></i></a>
@@ -73,4 +79,22 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.onhead').change(function(){
+    var datas = "&menuid=" + $(this).val();
+      $.ajax({
+        type: "POST",
+        url: "index.php?route=catalog/smenu/setheader&token=<?php echo $token; ?>",
+        cache: false,
+        data: datas,
+        success: function(html){
+          var jsonData = JSON.parse(html);
+          if (jsonData['error']==0)
+            alert('ok');
+        },
+      });
+  })
+})
+</script>
 <?php echo $footer; ?>

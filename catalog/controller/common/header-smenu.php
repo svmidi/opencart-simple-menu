@@ -80,11 +80,11 @@ class ControllerCommonHeader extends Controller {
 		}
 
 		$this->load->model('catalog/smenu');
-		
-		$root_items = $this->model_catalog_smenu->getSmenu(1);
+		$data['categories'] = array();
+		$root_items = $this->model_catalog_smenu->getSmenu(0);
 		$routs=array(0 =>"/",1=>"information/contact", 2=>"account/return/add", 3=>"information/sitemap", 4=>"product/manufacturer", 5=>"account/voucher", 6=>"affiliate/account", 7=>"product/special", 8=>"account/account", 9=>"account/order", 10=>"account/wishlist", 11=>"account/newsletter", 12=>"account/newsletter");
-		$path=array(1=>'information/information', 2=>'product/category', 3 =>'catalog/product', 4=>'information/sigallery');
-		$path_url=array(1=>'information_id', 2=>'path', 3=>'path', 4=>'path_gallery');
+		$path=array(1=>'information/information', 2=>'product/category', 3 =>'catalog/product', 4=>'information/sigallery',0=>'');
+		$path_url=array(1=>'information_id', 2=>'path', 3=>'path', 4=>'path_gallery', 0=>'');
 
 		foreach ($root_items as $items) {
 			$children_data=false;
@@ -121,12 +121,14 @@ class ControllerCommonHeader extends Controller {
 			}
 			elseif (($items['type']==6) AND ($items['type_id']==0)) {
 				$url="/";
-				$active = (!$this->request->get)?'active':'';
+				$active = (!$this->request->get)?1:0;
 			}
 			else {
 				$url=$this->url->link($path[(int)$items['type']], "&".$path_url[(int)$items['type']]."=".$items['type_id'], 'SSL');
-				if ((isset($this->request->get['route']))AND($this->request->get['route']==$path[(int)$items['type']]) AND (isset($this->request->get[$path_url[(int)$items['type']]])))
-					$active = 'active';
+				//if ((isset($this->request->get['route']))AND($this->request->get['route']==$path[(int)$items['type']]) AND (isset($this->request->get[$path_url[(int)$items['type']]])))
+				if ((isset($this->request->get['route']))AND($this->request->get['route']==$path[(int)$items['type']]) AND (isset($this->request->get[$path_url[(int)$items['type']]])) AND ($this->request->get[$path_url[(int)$items['type']]]==(int)$items['type_id']))
+				
+					$active = 1;
 			}
 
 			$data['categories'][] = array(
