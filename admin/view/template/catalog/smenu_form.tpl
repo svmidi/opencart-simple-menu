@@ -106,6 +106,7 @@ li.mjs-nestedSortable-leaf { margin:5px 0; border:1px solid #D4D4D4;}
 		$('#type').change(function() {
 			var id = $(this).val();
 			var datas = "&id=" + id;
+			var $btn = $('#save-type').attr('disabled','disabled');
 			$.ajax({
 				type: "POST",
 				url: "index.php?route=catalog/smenu/getType&token=<?php echo $token; ?>",
@@ -114,6 +115,9 @@ li.mjs-nestedSortable-leaf { margin:5px 0; border:1px solid #D4D4D4;}
 				success: function(html){
 					var jsonData = JSON.parse(html);
 					$('#level2').html(jsonData.result);
+					if (jsonData.error == 0) {
+						$btn.removeAttr('disabled');
+					}
 				},
 			});
 
@@ -312,6 +316,7 @@ li.mjs-nestedSortable-leaf { margin:5px 0; border:1px solid #D4D4D4;}
 					<option value="4">SIGallery</option>
 					<option value="5">URL</option>
 					<option value="6"><?php echo $option_system; ?></option>
+					<option value="7"><?php echo $option_categories; ?></option>
 				</select>
 				<div id="level2">
 

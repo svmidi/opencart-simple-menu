@@ -7,6 +7,8 @@ $_['text_success']       = 'Success: You have modified menu!';
 $_['text_list']          = 'List Menu';
 $_['text_modal']         = 'Item setup';
 $_['text_sure']          = 'Are you sure you want to delete this item?';
+$_['text_noinstall']     = 'This module is not installed';
+
 // Column
 $_['column_name']        = 'Name';
 $_['column_action']      = 'Action';
@@ -35,6 +37,7 @@ $_['option_history']     = 'Order History';
 $_['option_wishlist']    = 'Wish List';
 $_['option_newsletter']  = 'Newsletter';
 $_['option_cart']        = 'Cart';
+$_['option_categories']  = 'List root categories';
 
 $_['option_type']        = '- select type -';
 $_['option_article']     = 'Articles';

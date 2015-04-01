@@ -102,51 +102,55 @@ class ControllerCatalogsmenu extends Controller {
 
 	public function getType() {
 		$this->language->load('catalog/smenu');
-		$json['error']=1;
-		if (isset($this->request->post['id'])) {
-			if ($this->request->post['id']==1) {
+		$json['error']=0;
+		switch ($this->request->post['id']) {
+			case '1':
 				$this->load->model('catalog/information');
 				$informations = $this->model_catalog_information->getInformations();
-				$return='<select id="end" class="form-control">';
+				$json['result']='<select id="end" class="form-control">';
 				foreach ($informations as $information) {
-					$return.='<option value="'.$information['information_id'].'">'.$information['title'].'</option>';
+					$json['result'].='<option value="'.$information['information_id'].'">'.$information['title'].'</option>';
 				}
-				$return.='</select>';
-			}
-			elseif ($this->request->post['id']==2) {
+				$json['result'].='</select>';
+			break;
+			case '2':
 				$this->load->model('catalog/category');
 				$categories = $this->model_catalog_category->getCategories();
-				$return='<select id="end" class="form-control">';
+				$json['result']='<select id="end" class="form-control">';
 				foreach ($categories as $category) {
-					$return.='<option value="'.$category['category_id'].'">'.$category['name'].'</option>';
+					$json['result'].='<option value="'.$category['category_id'].'">'.$category['name'].'</option>';
 				}
-				$return.='</select>';
-
-			}
-			elseif ($this->request->post['id']==3) {
+				$json['result'].='</select>';
+			break;
+			case '3':
 				$this->load->model('catalog/product');
 				$products = $this->model_catalog_product->getProducts();
-				$return='<select id="end" class="form-control">';
+				$json['result']='<select id="end" class="form-control">';
 				foreach ($products as $product) {
-					$return.='<option value="'.$product['product_id'].'">'.$product['name'].'</option>';
+					$json['result'].='<option value="'.$product['product_id'].'">'.$product['name'].'</option>';
 				}
-				$return.='</select>';
-			}
-			elseif ($this->request->post['id']==4) {
-				$this->load->model('catalog/sigallery');
-				$gallerys = $this->model_catalog_sigallery->getSigallerys();
-				$return='<select id="end" class="form-control">';
-				foreach ($gallerys as $gallery) {
-					$return.='<option value="'.$gallery['sigallery_id'].'">'.$gallery['title'].'</option>';
+				$json['result'].='</select>';
+			break;
+			case '4':
+				if (file_exists(DIR_APPLICATION."model/catalog/sigallery.php")) {
+					$this->load->model('catalog/sigallery');
+					$gallerys = $this->model_catalog_sigallery->getSigallerys();
+					$json['result']='<select id="end" class="form-control">';
+					foreach ($gallerys as $gallery) {
+						$json['result'].='<option value="'.$gallery['sigallery_id'].'">'.$gallery['title'].'</option>';
+					}
+					$json['result'].='</select>';
 				}
-				$return.='</select>';
-			}
-			elseif ($this->request->post['id']==4) {
-				$return='<input type="text" id="end" vlaue="" class="form-control">';
-			}
-			else
-			{
-				$return='<select id="end" class="form-control">
+				else {
+					$json['result']='<p class="text-danger">'.$this->language->get('text_noinstall').'</p>';
+					$json['error']=2;
+				}
+			break;
+			case '5':
+				$json['result']='<input type="text" id="end" vlaue="" class="form-control">';
+			break;
+			case '6':
+				$json['result']='<select id="end" class="form-control">
 				<option value="0">'.$this->language->get('option_main').'</option>
 				<option value="1">'.$this->language->get('option_contact').'</option>
 				<option value="2">'.$this->language->get('option_returns').'</option>
@@ -161,12 +165,21 @@ class ControllerCatalogsmenu extends Controller {
 				<option value="11">'.$this->language->get('option_newsletter').'</option>
 				<option value="12">'.$this->language->get('option_cart').'</option>
 				</select>';
-			}
-
-			$json['respond'] = $this->request->post['id'];
-			$json['result'] = $return;
-			$json['error']=0;
+			break;
+			case '7':
+				if (file_exists(DIR_APPLICATION."controller/catalog/categories.php")) {
+					$json['result']='<select id="end" class="form-control" readonly><option value="1">'.$this->language->get('option_categories').'</option></select>';
+				}
+				else {
+					$json['result']='<p class="text-danger">'.$this->language->get('text_noinstall').'</p>';
+					$json['error']=2;
+				}
+			break;
+			default:
+				$json['error']=1;
+			break;
 		}
+
 		$this->response->setOutput(json_encode($json));
 	}
 
@@ -333,6 +346,7 @@ class ControllerCatalogsmenu extends Controller {
 		$data['text_disabled'] = $this->language->get('text_disabled');
 		$data['text_sure'] = $this->language->get('text_sure');
 		$data['text_list'] = $this->language->get('text_list');
+		$data['text_modal'] = $this->language->get('text_modal');
 
 		$data['entry_name'] = $this->language->get('entry_name');
 		$data['entry_title'] = $this->language->get('entry_title');
@@ -349,7 +363,7 @@ class ControllerCatalogsmenu extends Controller {
 		$data['option_category'] = $this->language->get('option_category');
 		$data['option_product'] = $this->language->get('option_product');
 		$data['option_system'] = $this->language->get('option_system');
-		$data['text_modal'] = $this->language->get('text_modal');
+		$data['option_categories'] = $this->language->get('option_categories');
 
 		$routs=array(0 =>"/",1=>"information/contact", 2=>"account/return/add", 3=>"information/sitemap", 4=>"product/manufacturer", 5=>"account/voucher", 6=>"affiliate/account", 7=>"product/special",
  8=>"route=account/account", 9=>"route=account/order", 10=>"route=account/wishlist", 11=>"route=account/newsletter", 12=>"route=account/newsletter");

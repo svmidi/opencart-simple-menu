@@ -83,8 +83,8 @@ class ControllerCommonHeader extends Controller {
 		$data['categories'] = array();
 		$root_items = $this->model_catalog_smenu->getSmenu(0);
 		$routs=array(0 =>"/",1=>"information/contact", 2=>"account/return/add", 3=>"information/sitemap", 4=>"product/manufacturer", 5=>"account/voucher", 6=>"affiliate/account", 7=>"product/special", 8=>"account/account", 9=>"account/order", 10=>"account/wishlist", 11=>"account/newsletter", 12=>"account/newsletter");
-		$path=array(1=>'information/information', 2=>'product/category', 3 =>'catalog/product', 4=>'information/sigallery',0=>'');
-		$path_url=array(1=>'information_id', 2=>'path', 3=>'path', 4=>'path_gallery', 0=>'');
+		$path=array(1=>'information/information', 2=>'product/category', 3 =>'catalog/product', 4=>'information/sigallery', 7=>'catalog/categories', 0=>'');
+		$path_url=array(1=>'information_id', 2=>'path', 3=>'path', 4=>'path_gallery', 0=>'', 7=>'');
 
 		foreach ($root_items as $items) {
 			$children_data=false;
@@ -121,6 +121,10 @@ class ControllerCommonHeader extends Controller {
 			}
 			elseif (($items['type']==6) AND ($items['type_id']==0)) {
 				$url="/";
+				$active = (!$this->request->get)?1:0;
+			}
+			elseif ($items['type']==7) {
+				$url=$this->url->link($path[(int)$items['type']],'','SSL');
 				$active = (!$this->request->get)?1:0;
 			}
 			else {
