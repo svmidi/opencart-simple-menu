@@ -108,7 +108,6 @@ class ControllerModulesmenu extends Controller {
 			`smenu_item_id` int(11) NOT NULL AUTO_INCREMENT,
 			`smenu_order` int(11) NOT NULL,
 			`smenu_parent` int(11) NOT NULL,
-			`smenu_status` tinyint(1) NOT NULL,
 			`smenu_id` int(11) NOT NULL,
 			`type` int(11) NOT NULL,
 			`type_id` int(11) NOT NULL,
