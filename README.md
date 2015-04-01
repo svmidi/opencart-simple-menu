@@ -1,4 +1,4 @@
-# sMenu - Simple Menu for OpenCart 2.x
+# sMenu - simple menu for OpenCart 2.x
 
 Description
 ===========
@@ -16,6 +16,6 @@ Install
 2. In the admin site, go to **System -> Users -> Users Groups -> Administrator**
 3. Tick the **"module / smenu"** and **"catalog / smenu"** sections "Access Permission" and "Modify Permission". Save the changes.
 4. Go to the "Extensions" -> "Modules" and click install button in front of the module.
-Then you can create menus and modules.
+Then you can create menus and modules.  
 If you want to use the module as a main menu, in the directory **/catalog/controller/common/** rename **header.php** to **header-origin.php** and **header-smenu.php** to **header.php**
 
