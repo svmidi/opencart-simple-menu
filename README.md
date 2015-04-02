@@ -12,7 +12,7 @@ Multilanguage support.
 
 Install
 =======
-1. Copy the "admin" and "directory" in the root of your site. On the issue of replacing answered in the affirmative.
+1. Copy the "admin" and "catalog" in the root of your site. On the issue of replacing answered in the affirmative.
 2. In the admin site, go to **System -> Users -> Users Groups -> Administrator**
 3. Tick the **"module / smenu"** and **"catalog / smenu"** sections "Access Permission" and "Modify Permission". Save the changes.
 4. Go to the "Extensions" -> "Modules" and click install button in front of the module.
